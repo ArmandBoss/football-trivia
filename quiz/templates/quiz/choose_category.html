@@ -1,0 +1,66 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Choose Category | Football Trivia
+{% endblock %}
+
+{% block content %}
+
+<section class="game-selection">
+
+    <div class="section-badge">
+        🏆 CATEGORY QUIZ
+    </div>
+
+    <h1>
+        CHOOSE A CATEGORY
+    </h1>
+
+    <p class="selection-description">
+        Select your specialist subject.
+        You will receive up to 10 questions
+        from that category.
+    </p>
+
+    <div class="choice-grid">
+
+        {% for category in categories %}
+
+            <a
+                href="{% url 'quiz:start_category' category.value %}"
+                class="choice-card"
+            >
+
+                <div class="choice-number">
+                    {{ category.count }}
+                </div>
+
+                <h2>
+                    {{ category.label }}
+                </h2>
+
+                <p>
+                    {{ category.count }}
+                    questions available
+                </p>
+
+                <div class="choice-play">
+                    PLAY →
+                </div>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+    <a href="{% url 'quiz:choose_game' %}"
+       class="back-link">
+
+        ← GAME MODES
+
+    </a>
+
+</section>
+
+{% endblock %}

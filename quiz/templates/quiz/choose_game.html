@@ -1,0 +1,170 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Choose Your Game | Football Trivia
+{% endblock %}
+
+{% block content %}
+
+<section class="game-selection">
+
+    <div class="section-badge">
+        ⚽ GAME MODES
+    </div>
+
+    <h1>
+        CHOOSE YOUR GAME
+    </h1>
+
+    <p class="selection-description">
+        Pick your challenge and prove
+        how much you know about football.
+    </p>
+
+    {% if error %}
+
+        <div class="error-message">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+    <div class="game-mode-grid">
+
+        <!-- QUICK MATCH -->
+
+        <a href="{% url 'quiz:start' %}"
+           class="game-mode-card">
+
+            <div class="mode-icon">
+                ⚡
+            </div>
+
+            <div class="mode-tag">
+                QUICK PLAY
+            </div>
+
+            <h2>
+                Quick Match
+            </h2>
+
+            <p>
+                10 random questions
+                selected from every
+                football category.
+            </p>
+
+            <div class="mode-info">
+
+                <span>
+                    10 QUESTIONS
+                </span>
+
+                <span>
+                    ALL LEVELS
+                </span>
+
+            </div>
+
+            <div class="mode-action">
+                PLAY →
+            </div>
+
+        </a>
+
+
+        <!-- CATEGORY -->
+
+        <a href="{% url 'quiz:choose_category' %}"
+           class="game-mode-card">
+
+            <div class="mode-icon">
+                🏆
+            </div>
+
+            <div class="mode-tag">
+                SPECIALIST
+            </div>
+
+            <h2>
+                Category Quiz
+            </h2>
+
+            <p>
+                Choose your favourite
+                football topic and test
+                your specialist knowledge.
+            </p>
+
+            <div class="mode-info">
+
+                <span>
+                    6 CATEGORIES
+                </span>
+
+                <span>
+                    YOUR CHOICE
+                </span>
+
+            </div>
+
+            <div class="mode-action">
+                CHOOSE CATEGORY →
+            </div>
+
+        </a>
+
+
+        <!-- DIFFICULTY -->
+
+        <a href="{% url 'quiz:choose_difficulty' %}"
+           class="game-mode-card">
+
+            <div class="mode-icon">
+                🎯
+            </div>
+
+            <div class="mode-tag">
+                CHALLENGE
+            </div>
+
+            <h2>
+                Difficulty Challenge
+            </h2>
+
+            <p>
+                Choose Easy, Medium
+                or Hard and see if
+                you can master the level.
+            </p>
+
+            <div class="mode-info">
+
+                <span>
+                    3 LEVELS
+                </span>
+
+                <span>
+                    CHALLENGE
+                </span>
+
+            </div>
+
+            <div class="mode-action">
+                SELECT LEVEL →
+            </div>
+
+        </a>
+
+    </div>
+
+    <a href="{% url 'quiz:home' %}"
+       class="back-link">
+
+        ← BACK HOME
+
+    </a>
+
+</section>
+
+{% endblock %}

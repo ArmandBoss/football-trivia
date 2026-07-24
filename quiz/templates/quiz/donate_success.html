@@ -1,0 +1,35 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Donation Successful
+{% endblock %}
+
+{% block content %}
+
+<div class="results-wrapper">
+
+    <div class="trophy">
+        ❤️
+    </div>
+
+    <h1>
+        Thank you for supporting Football Trivia!
+    </h1>
+
+    <p>
+        Your contribution helps us build new quizzes,
+        new game modes and improve the project.
+    </p>
+
+    <br>
+
+    <a
+        class="play-button"
+        href="{% url 'quiz:home' %}"
+    >
+        Back Home
+    </a>
+
+</div>
+
+{% endblock %}

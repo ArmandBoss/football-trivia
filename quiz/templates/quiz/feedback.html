@@ -1,0 +1,121 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Answer | Football Trivia
+{% endblock %}
+
+{% block content %}
+
+<div class="feedback-wrapper">
+
+    <div class="feedback-card">
+
+        {% if is_correct %}
+
+            <div class="result-icon correct-icon">
+                ✓
+            </div>
+
+            <div class="result-label correct-text">
+                CORRECT
+            </div>
+
+            <h1>
+                Great answer!
+            </h1>
+
+        {% else %}
+
+            <div class="result-icon wrong-icon">
+                ✕
+            </div>
+
+            <div class="result-label wrong-text">
+                INCORRECT
+            </div>
+
+            <h1>
+                Not this time.
+            </h1>
+
+            <div class="your-answer">
+
+                Your answer:
+
+                <strong>
+                    {{ selected_answer }}.
+                    {{ selected_answer_text }}
+                </strong>
+
+            </div>
+
+        {% endif %}
+
+        <div class="correct-answer-box">
+
+            <span>
+                CORRECT ANSWER
+            </span>
+
+            <strong>
+                {{ correct_answer }}.
+                {{ correct_answer_text }}
+            </strong>
+
+        </div>
+
+        {% if question.explanation %}
+
+            <div class="fact-box">
+
+                <div class="fact-title">
+                    💡 DID YOU KNOW?
+                </div>
+
+                <p>
+                    {{ question.explanation }}
+                </p>
+
+            </div>
+
+        {% endif %}
+
+        <div class="feedback-footer">
+
+            <div class="current-score">
+
+                SCORE
+
+                <strong>
+                    {{ score }}
+                </strong>
+
+            </div>
+
+            {% if finished %}
+
+                <a href="{% url 'quiz:results' %}"
+                   class="next-button">
+
+                    SEE RESULTS →
+
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'quiz:question' %}"
+                   class="next-button">
+
+                    NEXT QUESTION →
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

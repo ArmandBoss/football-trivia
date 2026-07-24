@@ -1,0 +1,122 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Choose Difficulty | Football Trivia
+{% endblock %}
+
+{% block content %}
+
+<section class="game-selection">
+
+    <div class="section-badge">
+        🎯 DIFFICULTY CHALLENGE
+    </div>
+
+    <h1>
+        CHOOSE YOUR LEVEL
+    </h1>
+
+    <p class="selection-description">
+        How confident are you
+        in your football knowledge?
+    </p>
+
+    <div class="difficulty-grid">
+
+        {% for difficulty in difficulties %}
+
+            <a
+                href="{% url 'quiz:start_difficulty' difficulty.value %}"
+                class="difficulty-card {{ difficulty.value }}"
+            >
+
+                {% if difficulty.value == "easy" %}
+
+                    <div class="difficulty-icon">
+                        ⚽
+                    </div>
+
+                    <div class="difficulty-rating">
+                        ★☆☆
+                    </div>
+
+                    <h2>
+                        EASY
+                    </h2>
+
+                    <p>
+                        Famous players,
+                        clubs and major
+                        football moments.
+                    </p>
+
+                {% elif difficulty.value == "medium" %}
+
+                    <div class="difficulty-icon">
+                        🔥
+                    </div>
+
+                    <div class="difficulty-rating">
+                        ★★☆
+                    </div>
+
+                    <h2>
+                        MEDIUM
+                    </h2>
+
+                    <p>
+                        Deeper football
+                        knowledge and
+                        historical moments.
+                    </p>
+
+                {% else %}
+
+                    <div class="difficulty-icon">
+                        👑
+                    </div>
+
+                    <div class="difficulty-rating">
+                        ★★★
+                    </div>
+
+                    <h2>
+                        HARD
+                    </h2>
+
+                    <p>
+                        Questions designed
+                        for serious football
+                        experts.
+                    </p>
+
+                {% endif %}
+
+                <div class="difficulty-count">
+
+                    {{ difficulty.count }}
+
+                    QUESTIONS AVAILABLE
+
+                </div>
+
+                <div class="choice-play">
+                    START CHALLENGE →
+                </div>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+    <a href="{% url 'quiz:choose_game' %}"
+       class="back-link">
+
+        ← GAME MODES
+
+    </a>
+
+</section>
+
+{% endblock %}

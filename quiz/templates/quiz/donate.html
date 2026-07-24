@@ -1,0 +1,639 @@
+{% extends "quiz/base.html" %}
+{% load static %}
+
+{% block title %}
+Support Us | Football Trivia
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'quiz/css/donate.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="donate-page">
+
+    <div class="donate-hero">
+
+        <div class="donate-badge">
+            ⚽ SUPPORT FOOTBALL TRIVIA
+        </div>
+
+        <h1>
+            HELP US BUILD A
+            <span>BETTER GAME.</span>
+        </h1>
+
+        <p class="donate-intro">
+            Football Trivia is an independent project
+            built for football fans who love to test
+            their knowledge, discover new facts and
+            challenge themselves.
+        </p>
+
+        <p class="donate-secondary">
+            Your support helps us develop new features,
+            expand our question database and keep
+            improving the experience.
+        </p>
+
+    </div>
+
+
+    <!-- DONATION CARD -->
+
+    <div class="donation-card">
+
+        <div class="donation-card-header">
+
+            <span class="small-label">
+                MAKE A CONTRIBUTION
+            </span>
+
+            <h2>
+                Support the development
+            </h2>
+
+            <p>
+                Choose an amount below.
+                Every contribution helps the project grow.
+            </p>
+
+        </div>
+
+
+        <!-- AMOUNTS -->
+
+        <div class="donation-amounts">
+
+            <button
+                type="button"
+                class="amount-button"
+                data-amount="2"
+            >
+                <strong>€2</strong>
+                <span>Small boost</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="amount-button active"
+                data-amount="5"
+            >
+                <div class="popular-label">
+                    POPULAR
+                </div>
+
+                <strong>€5</strong>
+                <span>Supporter</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="amount-button"
+                data-amount="10"
+            >
+                <strong>€10</strong>
+                <span>Big support</span>
+            </button>
+
+        </div>
+
+
+        <!-- CUSTOM AMOUNT -->
+
+        <div class="custom-amount">
+
+            <label for="customAmount">
+                OR ENTER A CUSTOM AMOUNT
+            </label>
+
+            <div class="custom-input">
+
+                <span>€</span>
+
+                <input
+                    type="number"
+                    id="customAmount"
+                    min="1"
+                    step="1"
+                    placeholder="Other amount"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- DONATE BUTTON -->
+
+        <button
+            type="button"
+            class="donate-button"
+            id="donateButton"
+        >
+
+            <span>
+                SUPPORT WITH €5
+            </span>
+
+            <span class="donate-arrow">
+                →
+            </span>
+
+        </button>
+
+
+        <div class="secure-note">
+            🔒 Secure payment · One-time contribution
+        </div>
+
+    </div>
+
+
+    <!-- WHY SUPPORT -->
+
+    <div class="support-section">
+
+        <div class="support-heading">
+
+            <span>
+                WHERE YOUR SUPPORT GOES
+            </span>
+
+            <h2>
+                Help Football Trivia grow
+            </h2>
+
+        </div>
+
+
+        <div class="support-grid">
+
+            <div class="support-item">
+
+                <div class="support-icon">
+                    ⚽
+                </div>
+
+                <h3>
+                    More Questions
+                </h3>
+
+                <p>
+                    Expand the trivia database with
+                    more categories, challenges and
+                    carefully researched questions.
+                </p>
+
+            </div>
+
+
+            <div class="support-item">
+
+                <div class="support-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    New Features
+                </h3>
+
+                <p>
+                    Build new game modes, leaderboards,
+                    player profiles, achievements and
+                    competitive challenges.
+                </p>
+
+            </div>
+
+
+            <div class="support-item">
+
+                <div class="support-icon">
+                    🚀
+                </div>
+
+                <h3>
+                    Better Experience
+                </h3>
+
+                <p>
+                    Improve performance, design and
+                    infrastructure as Football Trivia
+                    continues to grow.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- THANK YOU -->
+
+    <div class="thank-you-section">
+
+        <div class="heart-icon">
+            ♥
+        </div>
+
+        <div>
+
+            <h2>
+                Thank you for supporting the project.
+            </h2>
+
+            <p>
+                Whether you contribute or simply play
+                Football Trivia, you're helping this
+                project move forward.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="{% url 'quiz:home' %}"
+        class="donate-back-link"
+    >
+        ← BACK TO FOOTBALL TRIVIA
+    </a>
+
+</section>
+
+
+<script>
+
+    /* =====================================================
+       FOOTBALL TRIVIA
+       DONATION + STRIPE CHECKOUT
+       ===================================================== */
+
+
+    /* -----------------------------------------------------
+       ELEMENTS
+       ----------------------------------------------------- */
+
+    const amountButtons =
+        document.querySelectorAll(
+            ".amount-button"
+        );
+
+    const customAmount =
+        document.getElementById(
+            "customAmount"
+        );
+
+    const donateButton =
+        document.getElementById(
+            "donateButton"
+        );
+
+    const donateButtonText =
+        donateButton.querySelector(
+            "span"
+        );
+
+
+    /* -----------------------------------------------------
+       DEFAULT DONATION
+       ----------------------------------------------------- */
+
+    let selectedAmount = 5;
+
+
+    /* -----------------------------------------------------
+       UPDATE BUTTON TEXT
+       ----------------------------------------------------- */
+
+    function updateDonateButton(amount) {
+
+        donateButtonText.textContent =
+            `SUPPORT WITH €${amount}`;
+
+    }
+
+
+    /* -----------------------------------------------------
+       PRESET AMOUNTS
+       €2 / €5 / €10
+       ----------------------------------------------------- */
+
+    amountButtons.forEach(
+
+        button => {
+
+            button.addEventListener(
+
+                "click",
+
+                function () {
+
+                    /* Remove active state */
+
+                    amountButtons.forEach(
+
+                        item =>
+
+                            item.classList.remove(
+                                "active"
+                            )
+
+                    );
+
+
+                    /* Activate selected button */
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    /* Store amount */
+
+                    selectedAmount =
+                        Number(
+                            this.dataset.amount
+                        );
+
+
+                    /* Clear custom amount */
+
+                    customAmount.value = "";
+
+
+                    /* Update main button */
+
+                    updateDonateButton(
+                        selectedAmount
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    /* -----------------------------------------------------
+       CUSTOM AMOUNT
+       ----------------------------------------------------- */
+
+    customAmount.addEventListener(
+
+        "input",
+
+        function () {
+
+            const value =
+                Number(
+                    this.value
+                );
+
+
+            if (
+                Number.isFinite(value)
+                &&
+                value >= 1
+            ) {
+
+                /* Remove preset selection */
+
+                amountButtons.forEach(
+
+                    item =>
+
+                        item.classList.remove(
+                            "active"
+                        )
+
+                );
+
+
+                /* Store custom amount */
+
+                selectedAmount =
+                    value;
+
+
+                /* Update button */
+
+                updateDonateButton(
+                    selectedAmount
+                );
+
+            }
+
+        }
+
+    );
+
+
+    /* -----------------------------------------------------
+       STRIPE CHECKOUT
+       ----------------------------------------------------- */
+
+    donateButton.addEventListener(
+
+        "click",
+
+        async function () {
+
+            /* ---------------------------------------------
+               VALIDATE AMOUNT
+               --------------------------------------------- */
+
+            const amount =
+                Number(
+                    selectedAmount
+                );
+
+
+            if (
+                !Number.isFinite(amount)
+                ||
+                amount < 1
+            ) {
+
+                alert(
+                    "Please enter a valid donation amount."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                amount > 1000
+            ) {
+
+                alert(
+                    "The maximum donation is €1000."
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               DISABLE BUTTON
+               Prevent double-click / duplicate sessions
+               --------------------------------------------- */
+
+            donateButton.disabled = true;
+
+
+            const originalText =
+                donateButtonText.textContent;
+
+
+            donateButtonText.textContent =
+                "CONNECTING TO STRIPE...";
+
+
+            try {
+
+                /* -----------------------------------------
+                   CREATE FORM DATA
+                   ----------------------------------------- */
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "amount",
+                    amount
+                );
+
+
+                /* -----------------------------------------
+                   REQUEST CHECKOUT SESSION FROM DJANGO
+                   ----------------------------------------- */
+
+                const response =
+                    await fetch(
+
+                        "{% url 'quiz:create_checkout_session' %}",
+
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "X-CSRFToken":
+                                    "{{ csrf_token }}"
+
+                            },
+
+                            body:
+                                formData
+
+                        }
+
+                    );
+
+
+                /* -----------------------------------------
+                   PARSE DJANGO RESPONSE
+                   ----------------------------------------- */
+
+                const data =
+                    await response.json();
+
+
+                /* -----------------------------------------
+                   HANDLE SERVER ERROR
+                   ----------------------------------------- */
+
+                if (
+                    !response.ok
+                ) {
+
+                    throw new Error(
+
+                        data.error
+                        ||
+                        "Could not create Stripe Checkout."
+
+                    );
+
+                }
+
+
+                /* -----------------------------------------
+                   CHECK STRIPE CHECKOUT URL
+                   ----------------------------------------- */
+
+                if (
+                    !data.url
+                ) {
+
+                    throw new Error(
+
+                        "Stripe Checkout URL was not returned."
+
+                    );
+
+                }
+
+
+                /* -----------------------------------------
+                   REDIRECT TO STRIPE
+                   ----------------------------------------- */
+
+                window.location.href =
+                    data.url;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Stripe Checkout Error:",
+                    error
+                );
+
+
+                alert(
+
+                    error.message
+                    ||
+                    "Something went wrong. Please try again."
+
+                );
+
+
+                /* Re-enable button */
+
+                donateButton.disabled =
+                    false;
+
+
+                donateButtonText.textContent =
+                    originalText;
+
+            }
+
+        }
+
+    );
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Results | Football Trivia
+{% endblock %}
+
+{% block content %}
+
+<div class="results-wrapper">
+
+    <div class="trophy">
+        🏆
+    </div>
+
+    <div class="match-complete">
+        MATCH COMPLETE
+    </div>
+
+    <h1>
+        {{ message }}
+    </h1>
+
+    <div class="final-score">
+
+        <strong>
+            {{ score }}
+        </strong>
+
+        <span>
+            / {{ total }}
+        </span>
+
+    </div>
+
+    <div class="accuracy">
+
+        ACCURACY
+
+        <strong>
+            {{ percentage }}%
+        </strong>
+
+    </div>
+
+    <div class="result-progress">
+
+        <div style="width: {{ percentage }}%;">
+        </div>
+
+    </div>
+
+    <div class="result-actions">
+
+        <a href="{% url 'quiz:start' %}"
+           class="play-button">
+
+            PLAY AGAIN ↻
+
+        </a>
+
+        <a href="{% url 'quiz:home' %}"
+           class="home-button">
+
+            HOME
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

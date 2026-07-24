@@ -1,0 +1,36 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Donation Cancelled
+{% endblock %}
+
+{% block content %}
+
+<div class="results-wrapper">
+
+    <div class="trophy">
+        ⚽
+    </div>
+
+    <h1>
+        Donation Cancelled
+    </h1>
+
+    <p>
+
+        No payment has been made.
+
+    </p>
+
+    <br>
+
+    <a
+        class="play-button"
+        href="{% url 'quiz:donate' %}"
+    >
+        Return
+    </a>
+
+</div>
+
+{% endblock %}

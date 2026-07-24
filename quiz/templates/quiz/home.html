@@ -1,0 +1,70 @@
+{% extends "quiz/base.html" %}
+
+{% block title %}
+Football Trivia
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-badge">
+        ⚽ THE ULTIMATE FOOTBALL QUIZ
+    </div>
+
+    <h1>
+        HOW WELL DO YOU
+        <span>KNOW FOOTBALL?</span>
+    </h1>
+
+    <p class="hero-description">
+        Test your football knowledge across
+        legendary players, iconic clubs,
+        World Cups and unforgettable moments.
+    </p>
+
+    <div class="stats">
+
+        <div class="stat">
+            <strong>100+</strong>
+            <span>QUESTIONS</span>
+        </div>
+
+        <div class="stat">
+            <strong>6</strong>
+            <span>CATEGORIES</span>
+        </div>
+
+        <div class="stat">
+            <strong>10</strong>
+            <span>PER GAME</span>
+        </div>
+
+    </div>
+
+    {% if error %}
+
+        <div class="error-message">
+            {{ error }}
+        </div>
+
+    {% else %}
+
+        <a href="{% url 'quiz:choose_game' %}"
+            class="play-button">
+
+            PLAY NOW
+
+            <span>→</span>
+
+        </a>
+
+    {% endif %}
+
+    <p class="small-text">
+        No account required • Random questions every game.
+    </p>
+
+</section>
+
+{% endblock %}

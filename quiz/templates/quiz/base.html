@@ -1,0 +1,484 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+         BASIC META
+         ===================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Football Trivia - Test your football knowledge with quizzes about the World Cup, Champions League, legendary players, clubs and football history."
+    >
+
+    <meta
+        name="theme-color"
+        content="#08150f"
+    >
+
+
+    <!-- =====================================================
+         PAGE TITLE
+         ===================================================== -->
+
+    <title>
+        {% block title %}
+            Football Trivia
+        {% endblock %}
+    </title>
+
+
+    <!-- =====================================================
+         MAIN CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'quiz/css/style.css' %}"
+    >
+
+
+    <!-- =====================================================
+         SUPPORT US BUTTON
+         CSS DIRECTLY INSIDE BASE.HTML
+         ===================================================== -->
+
+    <style>
+
+        /* ----------------------------------------------
+           NAVBAR RIGHT SIDE
+           ---------------------------------------------- */
+
+        #nav-actions-base {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            gap: 12px;
+        }
+
+
+        /* ----------------------------------------------
+           SUPPORT US BUTTON
+           ---------------------------------------------- */
+
+        #support-us-button,
+        #support-us-button:link,
+        #support-us-button:visited {
+
+            display: inline-flex !important;
+
+            align-items: center !important;
+            justify-content: center !important;
+
+            gap: 8px !important;
+
+            min-height: 40px !important;
+
+            padding:
+                0
+                17px !important;
+
+            margin: 0 !important;
+
+
+            /* Border */
+
+            border:
+                1px solid
+                rgba(57, 230, 117, 0.40) !important;
+
+            border-radius:
+                7px !important;
+
+
+            /* Background */
+
+            background:
+                rgba(57, 230, 117, 0.10) !important;
+
+
+            /* Text */
+
+            color:
+                #39e675 !important;
+
+            text-decoration:
+                none !important;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif !important;
+
+            font-size:
+                10px !important;
+
+            font-weight:
+                900 !important;
+
+            letter-spacing:
+                1.2px !important;
+
+            line-height:
+                1 !important;
+
+            white-space:
+                nowrap !important;
+
+
+            /* Other */
+
+            cursor:
+                pointer !important;
+
+            box-shadow:
+                0
+                6px
+                22px
+                rgba(57, 230, 117, 0.08) !important;
+
+            transition:
+                background 0.20s ease,
+                color 0.20s ease,
+                border-color 0.20s ease,
+                transform 0.20s ease,
+                box-shadow 0.20s ease !important;
+        }
+
+
+        /* ----------------------------------------------
+           REMOVE DEFAULT LINK STYLING
+           ---------------------------------------------- */
+
+        #support-us-button span {
+
+            color:
+                inherit !important;
+
+            text-decoration:
+                none !important;
+        }
+
+
+        /* ----------------------------------------------
+           HEART ICON
+           ---------------------------------------------- */
+
+        #support-us-button .support-heart-inline {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            color:
+                inherit !important;
+
+            font-size:
+                14px !important;
+
+            line-height:
+                1;
+        }
+
+
+        /* ----------------------------------------------
+           BUTTON TEXT
+           ---------------------------------------------- */
+
+        #support-us-button .support-text-inline {
+
+            color:
+                inherit !important;
+
+            font-size:
+                10px !important;
+
+            font-weight:
+                900 !important;
+
+            letter-spacing:
+                1.2px !important;
+        }
+
+
+        /* ----------------------------------------------
+           HOVER
+           ---------------------------------------------- */
+
+        #support-us-button:hover {
+
+            background:
+                #39e675 !important;
+
+            border-color:
+                #39e675 !important;
+
+            color:
+                #06130b !important;
+
+            text-decoration:
+                none !important;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0
+                10px
+                30px
+                rgba(57, 230, 117, 0.25) !important;
+        }
+
+
+        #support-us-button:hover span {
+
+            color:
+                #06130b !important;
+        }
+
+
+        /* ----------------------------------------------
+           ACTIVE / CLICK
+           ---------------------------------------------- */
+
+        #support-us-button:active {
+
+            transform:
+                translateY(0);
+
+            box-shadow:
+                0
+                4px
+                15px
+                rgba(57, 230, 117, 0.15) !important;
+        }
+
+
+        /* ----------------------------------------------
+           KEYBOARD FOCUS
+           ---------------------------------------------- */
+
+        #support-us-button:focus-visible {
+
+            outline:
+                2px solid
+                #39e675 !important;
+
+            outline-offset:
+                4px;
+        }
+
+
+        /* ----------------------------------------------
+           TABLET / MOBILE
+           ---------------------------------------------- */
+
+        @media (max-width: 650px) {
+
+            #support-us-button,
+            #support-us-button:link,
+            #support-us-button:visited {
+
+                min-height:
+                    34px !important;
+
+                padding:
+                    0
+                    11px !important;
+
+                gap:
+                    6px !important;
+            }
+
+
+            #support-us-button .support-text-inline {
+
+                font-size:
+                    8px !important;
+
+                letter-spacing:
+                    0.8px !important;
+            }
+
+
+            #support-us-button .support-heart-inline {
+
+                font-size:
+                    12px !important;
+            }
+
+        }
+
+
+        /* ----------------------------------------------
+           VERY SMALL MOBILE
+           ---------------------------------------------- */
+
+        @media (max-width: 420px) {
+
+            #support-us-button,
+            #support-us-button:link,
+            #support-us-button:visited {
+
+                width:
+                    36px !important;
+
+                min-width:
+                    36px !important;
+
+                height:
+                    34px !important;
+
+                padding:
+                    0 !important;
+            }
+
+
+            #support-us-button .support-text-inline {
+
+                display:
+                    none !important;
+            }
+
+
+            #support-us-button .support-heart-inline {
+
+                font-size:
+                    15px !important;
+            }
+
+        }
+
+    </style>
+
+
+    <!-- =====================================================
+         PAGE-SPECIFIC CSS
+         Example: donate.html -> donate.css
+         ===================================================== -->
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <nav class="navbar">
+
+
+        <!-- =================================================
+             LOGO
+             ================================================= -->
+
+        <a
+            href="{% url 'quiz:home' %}"
+            class="logo"
+            aria-label="Football Trivia Home"
+        >
+
+            <span
+                class="logo-ball"
+                aria-hidden="true"
+            >
+                ⚽
+            </span>
+
+
+            <span class="logo-football">
+                FOOTBALL
+            </span>
+
+
+            <span class="logo-trivia">
+                TRIVIA
+            </span>
+
+        </a>
+
+
+        <!-- =================================================
+             RIGHT NAVIGATION
+             ================================================= -->
+
+        <div id="nav-actions-base">
+
+
+            <!-- =============================================
+                 SUPPORT US BUTTON
+                 ============================================= -->
+
+            <a
+                id="support-us-button"
+                href="{% url 'quiz:donate' %}"
+                aria-label="Support Football Trivia"
+            >
+
+                <span
+                    class="support-heart-inline"
+                    aria-hidden="true"
+                >
+                    ♥
+                </span>
+
+
+                <span class="support-text-inline">
+                    SUPPORT US
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-container">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- =====================================================
+         PAGE-SPECIFIC JAVASCRIPT
+         ===================================================== -->
+
+    {% block extra_js %}
+    {% endblock %}
+
+
+</body>
+
+</html>
